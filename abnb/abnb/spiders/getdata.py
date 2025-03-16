@@ -148,16 +148,16 @@ try:
                 print("removing price obstacle element")
                 # Close window asking for translation if appears its eiter schliessen or schließen
                 try:
-                    translation_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schliessen']") or driver.find_element(By.XPATH, "//button[@aria-label='Schließen']")
+                    time.sleep(10)
+                    translation_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schliessen']") or driver.find_element(By.XPATH, "//button[@aria-label='Schließen']") or driver.find_element(By.XPATH, "//button[@aria-label='Close']") or driver.find_element(By.XPATH, "//button[@aria-label='close']")
                     translation_close_button.click()
-                    time.sleep(1)
                     
                     print("Closed translation popup")
                 except:
                     print("No translation popup found")
                     pass
                 print("Trying to get price")
-                price_element = WebDriverWait(driver, 15).until(
+                price_element = WebDriverWait(driver, 1).until(
                     EC.visibility_of_element_located((By.XPATH, "(//span[contains(@class,'_18x3iiu')])[1]"))
                 )
                 
