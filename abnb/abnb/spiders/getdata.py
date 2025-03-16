@@ -165,10 +165,8 @@ try:
                 
                 price = price_element.get_attribute("innerHTML").replace("&nbsp;", " ").strip()
                 
-                # go from <div>75 CHF x 10 Nächte</div> to 75 CHF
-                price = price.split(" ")[0]
-                # remove any remaining <div
-                price = price.replace("<div>", "")
+                # go from <span><div class="_10d7v0r"><button type="button" class="_12wl7g09 l1ovpqvx atm_1he2i46_1k8pnbi_10saat9 atm_yxpdqi_1pv6nv4_10saat9 atm_1a0hdzc_w1h1e8_10saat9 atm_2bu6ew_929bqk_10saat9 atm_12oyo1u_73u7pn_10saat9 atm_fiaz40_1etamxe_10saat9 dir dir-ltr" style="text-align: start;"><div class="l1x1206l atm_7l_jt7fhx atm_r3_1e5hqsa dir dir-ltr">39&nbsp;CHF x 10 Nächte</div><span class="a8jt5op atm_3f_idpfg4 atm_7h_hxbz6r atm_7i_ysn8ba atm_e2_t94yts atm_ks_zryt35 atm_l8_idpfg4 atm_mk_stnw88 atm_vv_1q9ccgz atm_vy_t94yts dir dir-ltr">Preisaufschlüsselung anzeigen</span></button></div></span>;CHF -> to 39 CHF
+                price = price.split("x")[0].replace("CHF", "CHF").strip()
                 
                 print(f"Found price: {price}")
 
