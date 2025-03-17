@@ -147,28 +147,8 @@ try:
                 )
                 name = name_element.text.strip()
                 print(f"Found name: {name}")
-            except:
-                print("Could not find listing name")
-            
-
-            try:
-                print("removing price obstacle element")
-                # Close window asking for translation if appears its eiter schliessen or schließen
-                try:
-                    # See if //div[@aria-label='Übersetzungen ein'] pops up
-                    translation_popup = driver.find_element(By.XPATH, "//div[@aria-label='Übersetzungen ein']")
-                    print("Found translation popup")
-                    
-                    # Via xpath //button[@aria-label='Schließen']//span[@class='i3tjjh1 atm_mk_h2mmj6 dir dir-ltr']//*[name()='svg'] schliessen
-                    translation_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schließen']//span[@class='i3tjjh1 atm_mk_h2mmj6 dir dir-ltr']//*[name()='svg']")
-                    translation_close_button.click()
-                    time.sleep(2)
-                    
-                    print("Closed translation popup")
-                except:
-                    print("No translation popup found")
-                    pass
-                print("Trying to get price")
+                
+                # GET PRICE
                 price_element = WebDriverWait(driver, 1).until(
                     EC.visibility_of_element_located((By.XPATH, "(//span[contains(@class,'_18x3iiu')])[1]"))
                 )
@@ -181,9 +161,32 @@ try:
                 price = price.split("x")[0].replace("CHF", "CHF").strip()
                 
                 print(f"Found price: {price}")
-
             except:
-                print("Could not find listing price")
+                print("Could not find listing name")
+            
+            # Pop up remover -> Move to try block if no price found
+            #try:
+            #    print("Checking for price obstacle element")
+            #    # Close window asking for translation if appears its eiter schliessen or schließen
+            #    try:
+            #        # See if //div[@aria-label='Übersetzungen ein'] pops up
+            #        translation_popup = driver.find_element(By.XPATH, "//div[@aria-label='Übersetzungen ein']")
+            #        print("Found translation popup")
+            #        
+            #        # Via xpath //button[@aria-label='Schließen']//span[@class='i3tjjh1 atm_mk_h2mmj6 dir dir-ltr']//*[name()='svg'] schliessen
+            #        translation_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schließen']//span[@class='i3tjjh1 atm_mk_h2mmj6 dir dir-ltr']//*[name()='svg']")
+            #        translation_close_button.click()
+            #        
+            #        print("Closed translation popup")
+            #    except:
+            #        print("No translation popup found")
+            #        pass
+            #    print("Trying to get price")
+            #    # Price here
+                
+
+            #except:
+            #    print("Could not find listing price")
             
             # Output data to CSV
             if name or price:
