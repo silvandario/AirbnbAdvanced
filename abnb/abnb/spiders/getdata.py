@@ -9,12 +9,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 
-# Chrome ###############################################################################################################
+
+# Chrome START ###############################################################################################################
 
 # Configure Chrome options
 options = Options()
 options.add_argument("--start-maximized")  # Start with browser maximized
 options.add_argument("--disable-blink-features=AutomationControlled")  # Disable automation flag
+options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
 
@@ -24,9 +26,10 @@ driver = webdriver.Chrome(options=options)
 # Modify navigator.webdriver flag to prevent detection
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
-# Chrome ###############################################################################################################
+# Chrome END ###############################################################################################################
 
 
+# CSV Start ###############################################################################################################
 
 # Configure CSV file for output
 csv_file = open('airbnb_listings.csv', 'w', newline='', encoding='utf-8')
@@ -38,11 +41,14 @@ csv_file_links = open('airbnb_links.csv', 'w', newline='', encoding='utf-8')
 csv_writer_links = csv.writer(csv_file_links)
 csv_writer_links.writerow(['Link'])
 
+# CSV END ###############################################################################################################
+
+
+# Main scraping logic ###############################################################################################################
 
 try:
     # Navigate to the Airbnb search page
-    print("Navigating to Airbnb search page...")
-    
+    print("Starting scraping process by loading search page...")
     # Fill in link with the link to the search page
     driver.get("https://www.airbnb.ch/s/St.-Gallen--Schweiz/homes?adults=1&place_id=ChIJVdgzdikem0cRFGH-HwhQIpo&checkin=2025-10-09&checkout=2025-10-19")
     
@@ -116,8 +122,8 @@ try:
             
             # Switch to the new tab
             driver.switch_to.window(driver.window_handles[1])
-            #time.sleep(15)  # Wait for page to load
-            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "//a[@rel='noopener noreferrer nofollow']"))) # wait for the page to load but better ;)
+            time.sleep(15)  # Wait for page to load
+            # WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "//a[@rel='noopener noreferrer nofollow']"))) 
             # If there's a popup, close it
             try:
                 popup_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schliessen']")
@@ -149,9 +155,14 @@ try:
                 print("removing price obstacle element")
                 # Close window asking for translation if appears its eiter schliessen or schließen
                 try:
-                    time.sleep(10)
-                    translation_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schliessen']") or driver.find_element(By.XPATH, "//button[@aria-label='Schließen']") or driver.find_element(By.XPATH, "//button[@aria-label='Close']") or driver.find_element(By.XPATH, "//button[@aria-label='close']")
+                    # See if //div[@aria-label='Übersetzungen ein'] pops up
+                    translation_popup = driver.find_element(By.XPATH, "//div[@aria-label='Übersetzungen ein']")
+                    print("Found translation popup")
+                    
+                    # Via xpath //button[@aria-label='Schließen']//span[@class='i3tjjh1 atm_mk_h2mmj6 dir dir-ltr']//*[name()='svg'] schliessen
+                    translation_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schließen']//span[@class='i3tjjh1 atm_mk_h2mmj6 dir dir-ltr']//*[name()='svg']")
                     translation_close_button.click()
+                    time.sleep(2)
                     
                     print("Closed translation popup")
                 except:
