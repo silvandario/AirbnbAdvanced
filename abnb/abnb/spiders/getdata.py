@@ -116,7 +116,8 @@ try:
             
             # Switch to the new tab
             driver.switch_to.window(driver.window_handles[1])
-            time.sleep(15)  # Wait for page to load
+            #time.sleep(15)  # Wait for page to load
+            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "//a[@rel='noopener noreferrer nofollow']"))) # wait for the page to load but better ;)
             # If there's a popup, close it
             try:
                 popup_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schliessen']")
