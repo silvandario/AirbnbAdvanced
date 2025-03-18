@@ -1,3 +1,8 @@
+# Idee
+# Alles scrapen. Danach Kontrolle der CSV Datei. Bei fehlenden Preisen, diese nochmals scrapen.
+# D.h. zeurst gtdata.py ausführen, dann get_remaining_data.py
+# cleandata.py ist nicht mehr relevant, da in get_remaining_data.py integriert.
+
 # -*- coding: utf-8 -*-
 import time
 import csv
@@ -29,7 +34,7 @@ driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () =>
 # Chrome END ###############################################################################################################
 
 
-# CSV Start ###############################################################################################################
+# CSV File Start ###############################################################################################################
 
 # Configure CSV file for output
 csv_file = open('airbnb_listings.csv', 'w', newline='', encoding='utf-8')
@@ -163,30 +168,6 @@ try:
                 print(f"Found price: {price}")
             except:
                 print("Could not find listing name")
-            
-            # Pop up remover -> Move to try block if no price found
-            #try:
-            #    print("Checking for price obstacle element")
-            #    # Close window asking for translation if appears its eiter schliessen or schließen
-            #    try:
-            #        # See if //div[@aria-label='Übersetzungen ein'] pops up
-            #        translation_popup = driver.find_element(By.XPATH, "//div[@aria-label='Übersetzungen ein']")
-            #        print("Found translation popup")
-            #        
-            #        # Via xpath //button[@aria-label='Schließen']//span[@class='i3tjjh1 atm_mk_h2mmj6 dir dir-ltr']//*[name()='svg'] schliessen
-            #        translation_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schließen']//span[@class='i3tjjh1 atm_mk_h2mmj6 dir dir-ltr']//*[name()='svg']")
-            #        translation_close_button.click()
-            #        
-            #        print("Closed translation popup")
-            #    except:
-            #        print("No translation popup found")
-            #        pass
-            #    print("Trying to get price")
-            #    # Price here
-                
-
-            #except:
-            #    print("Could not find listing price")
             
             # Output data to CSV
             if name or price:
