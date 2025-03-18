@@ -24,6 +24,7 @@ options.add_argument("--disable-blink-features=AutomationControlled")  # Disable
 options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
+options.add_argument("--headless")  # Browser im Hintergrund laufen lassen
 
 # Initialize the browser
 driver = webdriver.Chrome(options=options)
@@ -55,7 +56,7 @@ try:
     # Navigate to the Airbnb search page
     print("Starting scraping process by loading search page...")
     # Fill in link with the link to the search page
-    driver.get("https://www.airbnb.ch/s/St.-Gallen--Schweiz/homes?adults=1&place_id=ChIJVdgzdikem0cRFGH-HwhQIpo&checkin=2025-10-09&checkout=2025-10-19")
+    driver.get("https://www.airbnb.ch/s/St.-Gallen--Schweiz/homes?refinement_paths%5B%5D=%2Fhomes&place_id=ChIJVdgzdikem0cRFGH-HwhQIpo&checkin=2025-06-26&checkout=2025-06-29&adults=1&query=St.%20Gallen%2C%20Schweiz&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-04-01&monthly_length=3&monthly_end_date=2025-07-01&search_mode=regular_search&price_filter_input_type=2&price_filter_num_nights=10&channel=EXPLORE&search_type=filter_change&date_picker_type=calendar&source=structured_search_input_header")
     
     # Wait for the page to load
     print("Waiting for page to load...")
