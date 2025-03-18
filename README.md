@@ -5,15 +5,18 @@ Welcome to the Airbnb Scraper, where automation meets efficiency! This project s
 🔍 Find the best Airbnb offers in seconds – no manual searching required!
 
 🚀 **How It Works**
-	1.	Navigate to the spiders folder in your terminal:
- cd spiders
+1.	Navigate to the spiders folder in your terminal:
 
- 	2.	Run the scraper with:
-  python getdata.py
+	cd spiders
+  
+3.	Run the scraper with:
 
-  3.	Watch the magic happen! 🎩✨ The script will extract and save all available Name, Price, and Link details into a CSV file.
+  	python getdata.py
+  	
 
-	4.	Check your results in the generated CSV file:
+4.	Watch the magic happen! 🎩✨ The script will extract and save all available Name, Price, and Link details into a CSV file.
+
+5.	Check your results in the generated CSV file:
   📂 airbnb_listings.csv
 
 
