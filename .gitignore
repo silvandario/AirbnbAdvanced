@@ -21,3 +21,7 @@ Thumbs.db
 
 # ignore csv files
 *.csv
+
+# obsolete
+get_remaining_data.py
+clean_data.py
