@@ -17,7 +17,7 @@ Welcome to the Airbnb Scraper, where automation meets efficiency! This project s
 4.	Watch the magic happen! 🎩✨ The script will extract and save all available Name, Price, and Link details into a CSV file.
 
 5.	Check your results in the generated CSV file:
-  📂 airbnb_listings.csv
+  📂 airbnb_listings_clean.csv
 
 
 
