@@ -1,3 +1,5 @@
+# Siehe Public Repository von silvandario:
+# https://github.com/silvandario/AirbnbAdvanced
 # Idee
 # Alles scrapen. Danach Kontrolle der CSV Datei. Bei fehlenden Preisen, diese nochmals scrapen.
 # D.h. zeurst gtdata.py ausführen, dann get_remaining_data.py
@@ -40,7 +42,7 @@ driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () =>
 
 # Configure CSV file for output
 print("Creating CSV file...")
-csv_file = open('airbnb_listings_oa.csv', 'w', newline='', encoding='utf-8')
+csv_file = open('airbnb_listings_olm.csv', 'w', newline='', encoding='utf-8')
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['Name', 'Preis', 'Link'])
 print("CSV file created")
@@ -61,7 +63,7 @@ try:
     # Navigate to the Airbnb search page
     print("Starting scraping process by loading search page...")
     # Fill in link with the link to the search page
-    driver.get("https://www.airbnb.ch/s/St.-Gallen--Schweiz/homes?refinement_paths%5B%5D=%2Fhomes&place_id=ChIJVdgzdikem0cRFGH-HwhQIpo&checkin=2025-06-26&checkout=2025-06-29&adults=1&query=St.%20Gallen%2C%20Schweiz&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-04-01&monthly_length=3&monthly_end_date=2025-07-01&search_mode=regular_search&price_filter_input_type=2&price_filter_num_nights=10&channel=EXPLORE&search_type=filter_change&date_picker_type=calendar&source=structured_search_input_header")
+    driver.get("https://www.airbnb.ch/s/St.-Gallen--Schweiz/homes?refinement_paths%5B%5D=%2Fhomes&place_id=ChIJVdgzdikem0cRFGH-HwhQIpo&checkin=2025-10-10&checkout=2025-10-19&adults=1&query=St.%20Gallen%2C%20Schweiz&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-04-01&monthly_length=3&monthly_end_date=2025-07-01&search_mode=regular_search&price_filter_input_type=2&price_filter_num_nights=3&channel=EXPLORE&search_type=filter_change&date_picker_type=calendar&source=structured_search_input_header")
     
     # Wait for the page to load
     print("Waiting for page to load...")
@@ -235,7 +237,7 @@ finally:
 
 
 # Datei einlesen
-df = pd.read_csv("airbnb_listings_oa.csv", names=["Name", "Preis", "Links"], skiprows=1)
+df = pd.read_csv("airbnb_listings_olm.csv", names=["Name", "Preis", "Links"], skiprows=1)
 
 # Funktion zur Bereinigung der Preisangaben
 def clean_price(price):
@@ -252,7 +254,7 @@ def clean_price(price):
 df["Preis"] = df["Preis"].apply(clean_price)
 
 # Bereinigte Datei speichern
-df.to_csv("airbnb_listings_oa_clean.csv", index=False)
+df.to_csv("airbnb_listings_olm_clean.csv", index=False)
 
 print("Bereinigung abgeschlossen. Datei gespeichert als airbnb_clean.csv")
 
