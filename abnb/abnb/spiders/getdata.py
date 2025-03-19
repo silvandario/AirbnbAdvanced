@@ -100,7 +100,7 @@ try:
         print("Collecting listing URLs...")
         time.sleep(2)
         
-        # First, collect all listing URLs on the current page
+        # Zuerst listing URLS sammeln
         listing_urls = []
         
         # Find all links that might be listings
@@ -136,7 +136,7 @@ try:
             # Switch to the new tab
             driver.switch_to.window(driver.window_handles[1])
             time.sleep(15)  # Wait for page to load
-            # WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "//a[@rel='noopener noreferrer nofollow']"))) 
+            
             # If there's a popup, close it
             try:
                 popup_close_button = driver.find_element(By.XPATH, "//button[@aria-label='Schliessen']")
@@ -258,4 +258,5 @@ df.to_csv("airbnb_listings_olm_clean.csv", index=False)
 
 print("Bereinigung abgeschlossen. Datei gespeichert als airbnb_clean.csv")
 
+# Starten mit:
 # caffeinate -i python getdata.py
